@@ -40,7 +40,10 @@ namespace DocTracker.BLL
         //返回指定id的doc
         internal static Doc Find(int id)
         {
-            return db.Docs.Find(id);
+            return db.Docs
+                .Include("Opers")
+                .Where(d=>d.ID==id)
+                .FirstOrDefault();
         }
 
         //指定id的doc是否存在
@@ -58,7 +61,7 @@ namespace DocTracker.BLL
         //返回所有doc的list
         internal static List<Doc> List()
         {
-            return db.Docs.ToList();
+            return db.Docs.Include("Opers").ToList();
         }
 
 
